@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:saddle"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "EP",
+    "EP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:ravager_spawn_egg"
+  }
+}

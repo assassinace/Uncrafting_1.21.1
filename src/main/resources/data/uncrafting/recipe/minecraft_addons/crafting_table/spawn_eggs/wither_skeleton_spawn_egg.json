@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "PE",
+    "EP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:wither_skeleton_spawn_egg"
+  }
+}

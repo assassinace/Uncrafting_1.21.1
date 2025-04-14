@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "minecraft:string"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "  T",
+    "TET",
+    "TTT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:spider_spawn_egg"
+  }
+}

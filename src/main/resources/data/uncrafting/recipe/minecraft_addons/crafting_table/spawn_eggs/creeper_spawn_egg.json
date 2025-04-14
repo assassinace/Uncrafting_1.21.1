@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:gunpowder"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    " S",
+    "SE",
+    " E"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:creeper_spawn_egg"
+  }
+}

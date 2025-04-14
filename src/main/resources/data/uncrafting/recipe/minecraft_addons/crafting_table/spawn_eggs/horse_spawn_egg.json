@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:leather"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    " F ",
+    " FE",
+    "F  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:horse_spawn_egg"
+  }
+}

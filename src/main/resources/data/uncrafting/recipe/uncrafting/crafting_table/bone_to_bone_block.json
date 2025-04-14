@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bone"
+    }
+  },
+  "pattern": [
+    "BB",
+    "B "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:bone_block"
+  }
+}

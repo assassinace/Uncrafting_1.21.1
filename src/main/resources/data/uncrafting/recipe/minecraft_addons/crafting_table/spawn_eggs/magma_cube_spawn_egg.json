@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:magma_cream"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "ENN",
+    "EN ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:magma_cube_spawn_egg"
+  }
+}

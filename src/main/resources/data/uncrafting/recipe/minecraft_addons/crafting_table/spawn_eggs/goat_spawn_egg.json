@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:goat_horn"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "CE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:goat_spawn_egg"
+  }
+}

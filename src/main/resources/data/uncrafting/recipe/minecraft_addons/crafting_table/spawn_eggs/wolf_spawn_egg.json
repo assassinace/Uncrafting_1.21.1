@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "X": {
+      "item": "minecraft:bone"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "EXX",
+    " EX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:wolf_spawn_egg"
+  }
+}

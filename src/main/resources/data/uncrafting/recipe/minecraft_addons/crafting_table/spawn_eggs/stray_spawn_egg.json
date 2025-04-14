@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:tipped_arrow"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "EN",
+    "NN",
+    " N"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:stray_spawn_egg"
+  }
+}

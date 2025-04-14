@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    "PS",
+    "SP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "uncrafting:uncrafting_table"
+  },
+  "show_notification": false
+}

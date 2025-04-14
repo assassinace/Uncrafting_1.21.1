@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "minecraft:red_mushroom"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "E  ",
+    "T T",
+    "  E"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:mooshroom_spawn_egg"
+  }
+}

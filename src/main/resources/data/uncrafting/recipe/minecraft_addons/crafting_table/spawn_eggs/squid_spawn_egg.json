@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:ink_sac"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "NEN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:squid_spawn_egg"
+  }
+}

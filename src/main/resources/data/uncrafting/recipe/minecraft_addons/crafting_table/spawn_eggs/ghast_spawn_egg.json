@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Q": {
+      "item": "minecraft:ghast_tear"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "E ",
+    "QQ",
+    "QQ"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:ghast_spawn_egg"
+  }
+}

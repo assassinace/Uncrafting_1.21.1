@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "LL",
+    "E ",
+    "  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:cow_spawn_egg"
+  }
+}

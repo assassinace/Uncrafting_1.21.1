@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "U": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "U ",
+    "EU",
+    "U "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:zombie_spawn_egg"
+  }
+}

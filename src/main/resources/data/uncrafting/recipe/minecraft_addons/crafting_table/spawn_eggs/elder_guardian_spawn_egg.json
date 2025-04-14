@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "D D",
+    "EDD",
+    "DDD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:elder_guardian_spawn_egg"
+  }
+}

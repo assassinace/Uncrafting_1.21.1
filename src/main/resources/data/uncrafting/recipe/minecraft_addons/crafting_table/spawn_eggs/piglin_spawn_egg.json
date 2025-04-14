@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "minecraft:gold_nugget"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    " O",
+    "O ",
+    "OE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:piglin_spawn_egg"
+  }
+}

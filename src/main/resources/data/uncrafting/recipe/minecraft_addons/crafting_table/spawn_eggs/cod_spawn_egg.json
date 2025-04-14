@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "Y": {
+      "item": "minecraft:cod"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "E E",
+    "YYY"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:cod_spawn_egg"
+  }
+}

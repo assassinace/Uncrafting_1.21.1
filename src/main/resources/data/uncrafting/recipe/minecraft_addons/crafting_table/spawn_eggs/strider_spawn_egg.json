@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "K": {
+      "item": "minecraft:string"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "EK",
+    "  ",
+    "K "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:strider_spawn_egg"
+  }
+}

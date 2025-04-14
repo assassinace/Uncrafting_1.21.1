@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item": "minecraft:leather"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "RE",
+    "R "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:llama_spawn_egg"
+  }
+}

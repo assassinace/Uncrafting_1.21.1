@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "J": {
+      "item": "minecraft:cookie"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "EJJ",
+    "E J"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:parrot_spawn_egg"
+  }
+}

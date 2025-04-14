@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:shulker_shell"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "   ",
+    "NE ",
+    " EN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:shulker_spawn_egg"
+  }
+}

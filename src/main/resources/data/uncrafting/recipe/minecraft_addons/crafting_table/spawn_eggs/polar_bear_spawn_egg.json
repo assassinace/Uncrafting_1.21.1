@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:salmon"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "NN ",
+    "EN "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:polar_bear_spawn_egg"
+  }
+}

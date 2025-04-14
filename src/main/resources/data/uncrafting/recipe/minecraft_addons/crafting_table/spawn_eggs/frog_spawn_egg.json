@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:slime_ball"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "B ",
+    " E"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:frog_spawn_egg"
+  }
+}

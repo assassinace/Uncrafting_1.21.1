@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "FE"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:bat_spawn_egg"
+  }
+}

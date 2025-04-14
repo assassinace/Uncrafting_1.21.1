@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "pattern": [
+    "HH ",
+    "H E",
+    "H H"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:vex_spawn_egg"
+  }
+}
