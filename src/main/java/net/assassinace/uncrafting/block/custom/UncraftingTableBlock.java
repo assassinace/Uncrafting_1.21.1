@@ -54,15 +54,18 @@ public class UncraftingTableBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos,
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos,
                                               Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if (entity instanceof UncraftingTableBlockEntity uncraftingTableBlockEntity) {
+        if(pLevel.getBlockEntity(pPos) instanceof UncraftingTableBlockEntity uncraftingTableBlockEntity) {
+            if (!pLevel.isClientSide()) {
                 ((ServerPlayer) pPlayer).openMenu(new SimpleMenuProvider(uncraftingTableBlockEntity, Component.literal("Uncrafting Table")), pPos);
-            } else {
-                throw new IllegalStateException("Our Container provider is missing!");
+                return ItemInteractionResult.SUCCESS;
             }
+
+            if(pLevel.isClientSide()) {
+                return ItemInteractionResult.SUCCESS;
+            }
+
         }
 
         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());

@@ -10,7 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class UncraftingTableScreen extends AbstractContainerScreen<UncraftingTableMenu> {
-    private static final ResourceLocation GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(Uncrafting.MOD_ID, "textures/gui/uncraftingtable/uncrafting_table_gui.png");
+    private static final ResourceLocation GUI_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Uncrafting.MOD_ID, "textures/gui/uncraftingtable/uncrafting_table_gui.png");
 
     public UncraftingTableScreen(UncraftingTableMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

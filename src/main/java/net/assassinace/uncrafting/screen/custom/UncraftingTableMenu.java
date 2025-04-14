@@ -4,6 +4,7 @@ import net.assassinace.uncrafting.block.ModBlocks;
 import net.assassinace.uncrafting.block.entity.custom.UncraftingTableBlockEntity;
 import net.assassinace.uncrafting.screen.ModMenuTypes;
 import net.assassinace.uncrafting.screen.custom.slot.OutputSlot;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -18,23 +19,27 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     public final UncraftingTableBlockEntity blockEntity;
     private final Level level;
 
-        public UncraftingTableMenu(int id, Inventory inv, BlockEntity entity) {
-        super(ModMenuTypes.UNCRAFTING_TABLE_MENU.get(), id);
-        this.blockEntity = ((UncraftingTableBlockEntity) entity);
-        this.level = inv.player.level();
+    public UncraftingTableMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
+            this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
+        }
+
+        public UncraftingTableMenu(int pContainerId, Inventory inv, BlockEntity blockEntity) {
+            super(ModMenuTypes.UNCRAFTING_TABLE_MENU.get(), pContainerId);
+            this.blockEntity = ((UncraftingTableBlockEntity) blockEntity);
+            this.level = inv.player.level();
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(blockEntity.getItemHandler(), 0, 30, 35));
+        this.addSlot(new SlotItemHandler(this.blockEntity.getItemHandler(), 0, 35, 35));
 
         // Output slots (3x3 grid)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 int index = 1 + row * 3 + col;
-                int x = 98 + col * 18;
+                int x = 93 + col * 18;
                 int y = 17 + row * 18;
-                this.addSlot(new OutputSlot(blockEntity, blockEntity.getItemHandler(), index, x, y));
+                this.addSlot(new OutputSlot((UncraftingTableBlockEntity) blockEntity, ((UncraftingTableBlockEntity) blockEntity).getItemHandler(), index, x, y));
             }
         }
     }
@@ -99,14 +104,14 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     private void addPlayerInventory(Inventory playerInventory) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 7 + j * 18, 84 + i * 18));
             }
         }
     }
 
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; i++) {
-            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+            this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 142));
         }
     }
 }
