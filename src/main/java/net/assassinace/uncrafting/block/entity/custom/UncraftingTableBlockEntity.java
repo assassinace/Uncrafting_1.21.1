@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvider {
+    private boolean suppressOutputUpdate = false;
+
     private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
 
         @Override
@@ -42,7 +44,7 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (!level.isClientSide()) {
+            if (!level.isClientSide() && !suppressOutputUpdate) {
                 updateUncraftingOutputs();
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
@@ -115,48 +117,59 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
     }
 
     public void clearOutputs() {
-        for (int i = OUTPUT_START; i <= OUTPUT_END; i++) {
-            itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+        suppressOutputUpdate = true;
+        try {
+            for (int i = OUTPUT_START; i <= OUTPUT_END; i++) {
+                itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+            }
+        } finally {
+            suppressOutputUpdate = false;
         }
     }
+
 
     public void updateUncraftingOutputs() {
         if (level == null || level.isClientSide) return;
 
-        ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
+        suppressOutputUpdate = true;
+        try {
+            ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
 
-        if (input.isEmpty() || input.isEnchanted() || (input.isDamageableItem() && input.isDamaged())) {
-            clearOutputs();
-            return;
-        }
+            if (input.isEmpty() || input.isEnchanted() || (input.isDamageableItem() && input.isDamaged())) {
+                clearOutputs();
+                return;
+            }
 
-        List<RecipeHolder<CraftingRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
-        Optional<RecipeHolder<CraftingRecipe>> match = recipes.stream()
-                .filter(r -> ItemStack.isSameItemSameComponents(r.value().getResultItem(level.registryAccess()), input))
-                .findFirst();
+            List<RecipeHolder<CraftingRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+            Optional<RecipeHolder<CraftingRecipe>> match = recipes.stream()
+                    .filter(r -> ItemStack.isSameItemSameComponents(r.value().getResultItem(level.registryAccess()), input))
+                    .findFirst();
 
-        if (match.isEmpty()) {
-            clearOutputs();
-            return;
-        }
+            if (match.isEmpty()) {
+                clearOutputs();
+                return;
+            }
 
-        CraftingRecipe recipe = match.get().value();
-        List<Ingredient> ingredients = recipe.getIngredients();
-        int multiplier = input.getCount();
+            CraftingRecipe recipe = match.get().value();
+            List<Ingredient> ingredients = recipe.getIngredients();
+            int multiplier = input.getCount();
 
-        for (int i = 0; i < 9; i++) {
-            if (i < ingredients.size()) {
-                ItemStack[] matches = ingredients.get(i).getItems();
-                if (matches.length > 0) {
-                    ItemStack copy = matches[0].copy();
-                    copy.setCount(multiplier);
-                    itemHandler.setStackInSlot(i + 1, copy);
+            for (int i = 0; i < 9; i++) {
+                if (i < ingredients.size()) {
+                    ItemStack[] matches = ingredients.get(i).getItems();
+                    if (matches.length > 0) {
+                        ItemStack copy = matches[0].copy();
+                        copy.setCount(multiplier);
+                        itemHandler.setStackInSlot(i + 1, copy);
+                    } else {
+                        itemHandler.setStackInSlot(i + 1, ItemStack.EMPTY);
+                    }
                 } else {
                     itemHandler.setStackInSlot(i + 1, ItemStack.EMPTY);
                 }
-            } else {
-                itemHandler.setStackInSlot(i + 1, ItemStack.EMPTY);
             }
+        } finally {
+            suppressOutputUpdate = false;
         }
     }
 
