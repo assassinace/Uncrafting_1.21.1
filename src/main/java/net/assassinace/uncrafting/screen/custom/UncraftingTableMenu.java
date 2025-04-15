@@ -15,93 +15,45 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.List;
+
 public class UncraftingTableMenu extends AbstractContainerMenu {
     public boolean shouldReturnOutputs = false;
-    private Player linkedPlayer; // to store the player using the menu
+    private final Player linkedPlayer;
     public final UncraftingTableBlockEntity blockEntity;
     private final Level level;
 
-    public UncraftingTableMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-            this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
-        }
+    public static final int OUTPUT_SLOT_START = 1;
+    public static final int OUTPUT_SLOT_END = 10;
 
-        public UncraftingTableMenu(int pContainerId, Inventory inv, BlockEntity blockEntity) {
-            super(ModMenuTypes.UNCRAFTING_TABLE_MENU.get(), pContainerId);
-            this.blockEntity = ((UncraftingTableBlockEntity) blockEntity);
-            this.level = inv.player.level();
-            this.linkedPlayer = inv.player;
+    public UncraftingTableMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
+    }
+
+    public UncraftingTableMenu(int pContainerId, Inventory inv, BlockEntity blockEntity) {
+        super(ModMenuTypes.UNCRAFTING_TABLE_MENU.get(), pContainerId);
+        this.blockEntity = ((UncraftingTableBlockEntity) blockEntity);
+        this.level = inv.player.level();
+        this.linkedPlayer = inv.player;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
         this.addSlot(new InputSlot(this.blockEntity, this.blockEntity.getItemHandler(), 0, 35, 35));
 
-        // Output slots (3x3 grid)
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 int index = 1 + row * 3 + col;
                 int x = 93 + col * 18;
                 int y = 17 + row * 18;
-                this.addSlot(new OutputSlot((UncraftingTableBlockEntity) blockEntity, ((UncraftingTableBlockEntity) blockEntity).getItemHandler(), index, x, y));
+                this.addSlot(new OutputSlot(this.blockEntity, this.blockEntity.getItemHandler(), index, x, y));
             }
         }
-    }
-
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
-    private static final int HOTBAR_SLOT_COUNT = 9;
-    private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
-    private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
-    private static final int PLAYER_INVENTORY_SLOT_COUNT = PLAYER_INVENTORY_COLUMN_COUNT * PLAYER_INVENTORY_ROW_COUNT;
-    private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
-    private static final int VANILLA_FIRST_SLOT_INDEX = 0;
-    private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-
-    // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must be the number of slots you have!
-
-    @Override
-    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
-        Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-
-        // Check if the slot clicked is one of the vanilla container slots
-        if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the tile inventory
-            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            // This is a TE slot so merge the stack into the players inventory
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else {
-            System.out.println("Invalid slotIndex:" + pIndex);
-            return ItemStack.EMPTY;
-        }
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-        sourceSlot.onTake(playerIn, sourceStack);
-        return copyOfSourceStack;
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                pPlayer, ModBlocks.UNCRAFTING_TABLE.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, ModBlocks.UNCRAFTING_TABLE.get());
     }
 
     private void addPlayerInventory(Inventory playerInventory) {
@@ -119,33 +71,52 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     }
 
     @Override
+    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
+        Slot sourceSlot = slots.get(pIndex);
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;
+
+        ItemStack sourceStack = sourceSlot.getItem();
+        ItemStack copyOfSourceStack = sourceStack.copy();
+
+        if (pIndex < 36) {
+            if (!moveItemStackTo(sourceStack, 36, 46, false)) {
+                return ItemStack.EMPTY;
+            }
+        } else if (!moveItemStackTo(sourceStack, 0, 36, false)) {
+            return ItemStack.EMPTY;
+        }
+
+        if (sourceStack.getCount() == 0) {
+            sourceSlot.set(ItemStack.EMPTY);
+        } else {
+            sourceSlot.setChanged();
+        }
+
+        sourceSlot.onTake(playerIn, sourceStack);
+        return copyOfSourceStack;
+    }
+
+    @Override
     public void removed(Player pPlayer) {
         super.removed(pPlayer);
 
         if (!pPlayer.level().isClientSide) {
-            // Return input item
-            ItemStack input = blockEntity.getItemHandler().getStackInSlot(0);
-            if (!input.isEmpty()) {
-                boolean success = pPlayer.getInventory().add(input);
-                if (!success) {
-                    pPlayer.drop(input, false);
-                }
-                blockEntity.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-            }
-
-            // Return remaining output items
-            for (int i = 1; i <= 9; i++) {
-                ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
-                if (!stack.isEmpty()) {
-                    boolean success = pPlayer.getInventory().add(stack);
-                    if (!success) {
-                        pPlayer.drop(stack, false);
+            for (int i = 0; i < blockEntity.getItemHandler().getSlots(); i++) {
+                if (i >= OUTPUT_SLOT_START && i < OUTPUT_SLOT_END || i == 0) {
+                    ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
+                    if (!stack.isEmpty()) {
+                        boolean success = pPlayer.getInventory().add(stack);
+                        if (!success) {
+                            pPlayer.drop(stack, false);
+                        }
+                        blockEntity.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
                     }
-                    blockEntity.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
                 }
             }
         }
     }
+
+
     @Override
     public void broadcastChanges() {
         super.broadcastChanges();
@@ -153,7 +124,7 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
         if (shouldReturnOutputs && !linkedPlayer.level().isClientSide) {
             shouldReturnOutputs = false;
 
-            for (int i = 1; i <= 9; i++) {
+            for (int i = OUTPUT_SLOT_START; i < OUTPUT_SLOT_END; i++) {
                 ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
                 if (!stack.isEmpty()) {
                     net.minecraftforge.items.ItemHandlerHelper.giveItemToPlayer(linkedPlayer, stack.copy());
@@ -162,12 +133,26 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
             }
 
             blockEntity.setChanged();
-            level.sendBlockUpdated(
-                    blockEntity.getBlockPos(),
-                    blockEntity.getBlockState(),
-                    blockEntity.getBlockState(),
-                    3
-            );
+            level.sendBlockUpdated(blockEntity.getBlockPos(), blockEntity.getBlockState(), blockEntity.getBlockState(), 3);
+        }
+    }
+
+    public void onOutputTaken(int slotIndex) {
+        int expectedIndex = slotIndex - OUTPUT_SLOT_START;
+        if (expectedIndex < 0 || expectedIndex >= blockEntity.getExpectedOutput().size()) return;
+
+        ItemStack expected = blockEntity.getExpectedOutput().get(expectedIndex);
+        ItemStack actual = getSlot(slotIndex).getItem();
+
+        boolean stillValid =
+                ItemStack.isSameItemSameComponents(actual, expected) &&
+                        actual.getCount() >= expected.getCount();
+
+        if (!stillValid) {
+            blockEntity.setSuppressOutputUpdate(true);
+            blockEntity.getItemHandler().extractItem(0, 1, false);
+            blockEntity.clearOutputs();
+            blockEntity.setSuppressOutputUpdate(false);
         }
     }
 }

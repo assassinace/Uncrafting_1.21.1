@@ -4,6 +4,7 @@ import net.assassinace.uncrafting.block.entity.ModBlockEntities;
 import net.assassinace.uncrafting.screen.custom.UncraftingTableMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -33,6 +34,7 @@ import java.util.Optional;
 
 public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvider {
     private boolean suppressOutputUpdate = false;
+    private final NonNullList<ItemStack> expectedOutput = NonNullList.withSize(9, ItemStack.EMPTY);
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
 
@@ -137,6 +139,7 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
 
             if (input.isEmpty() || input.isEnchanted() || (input.isDamageableItem() && input.isDamaged())) {
                 clearOutputs();
+                setExpectedOutput(NonNullList.withSize(9, ItemStack.EMPTY));
                 return;
             }
 
@@ -145,13 +148,13 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
                     .filter(r -> {
                         ItemStack result = r.value().getResultItem(level.registryAccess());
                         return ItemStack.isSameItemSameComponents(result, input)
-                                && input.getCount() >= result.getCount(); // ← new check
+                                && input.getCount() >= result.getCount();
                     })
                     .findFirst();
 
-
             if (match.isEmpty()) {
                 clearOutputs();
+                setExpectedOutput(NonNullList.withSize(9, ItemStack.EMPTY));
                 return;
             }
 
@@ -160,28 +163,33 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
             int recipeOutputCount = recipe.getResultItem(level.registryAccess()).getCount();
             if (input.getCount() < recipeOutputCount) {
                 clearOutputs();
+                setExpectedOutput(NonNullList.withSize(9, ItemStack.EMPTY));
                 return;
             }
+
             int multiplier = input.getCount() / recipeOutputCount;
+            NonNullList<ItemStack> layout = NonNullList.withSize(9, ItemStack.EMPTY);
 
-
-            for (int i = 0; i < 9; i++) {
-                if (i < ingredients.size()) {
-                    ItemStack[] matches = ingredients.get(i).getItems();
-                    if (matches.length > 0) {
-                        ItemStack copy = matches[0].copy();
-                        copy.setCount(multiplier);
-                        itemHandler.setStackInSlot(i + 1, copy);
-                    } else {
-                        itemHandler.setStackInSlot(i + 1, ItemStack.EMPTY);
-                    }
-                } else {
-                    itemHandler.setStackInSlot(i + 1, ItemStack.EMPTY);
+            for (int i = 0; i < ingredients.size(); i++) {
+                Ingredient ing = ingredients.get(i);
+                ItemStack[] matches = ing.getItems();
+                if (matches.length > 0) {
+                    ItemStack copy = matches[0].copy();
+                    copy.setCount(multiplier);
+                    layout.set(i, copy);
                 }
             }
+
+            // Apply output layout to slots
+            for (int i = 0; i < 9; i++) {
+                itemHandler.setStackInSlot(i + 1, layout.get(i));
+            }
+
+            setExpectedOutput(layout);
         } finally {
             suppressOutputUpdate = false;
         }
+
     }
 
     public ItemStackHandler getItemHandler() {
@@ -202,4 +210,16 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
     public void setSuppressOutputUpdate(boolean value) {
         this.suppressOutputUpdate = value;
     }
+
+    public List<ItemStack> getExpectedOutput() {
+        return expectedOutput;
+    }
+
+    private void setExpectedOutput(List<ItemStack> shapedOutput) {
+        for (int i = 0; i < 9; i++) {
+            expectedOutput.set(i, shapedOutput.get(i).copy());
+        }
+    }
+
+
 }

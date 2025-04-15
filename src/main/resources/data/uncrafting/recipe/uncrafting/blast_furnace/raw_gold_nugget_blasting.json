@@ -7,6 +7,6 @@
         "item": "uncrafting:raw_gold_nugget"
     },
     "result": {
-        "id": "uncrafting:gold_nugget"
+        "id": "minecraft:gold_nugget"
     }
 }

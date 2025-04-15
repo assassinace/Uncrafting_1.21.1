@@ -22,19 +22,13 @@ public class OutputSlot extends SlotItemHandler {
     }
 
     @Override
-    public void onTake(Player pPlayer, ItemStack pStack) {
-        super.onTake(pPlayer, pStack);
+    public void onTake(Player pPlayer, ItemStack pTakenStack) {
+        super.onTake(pPlayer, pTakenStack);
 
         if (pPlayer.level().isClientSide) return;
 
-        blockEntity.setSuppressOutputUpdate(true);
-        blockEntity.getItemHandler().extractItem(0, 1, false);
-        blockEntity.setSuppressOutputUpdate(false);
-
-        // Flag to return all outputs in the next tick from the menu
         if (pPlayer.containerMenu instanceof UncraftingTableMenu menu) {
-            menu.shouldReturnOutputs = true;
+            menu.onOutputTaken(this.getSlotIndex());
         }
     }
 }
-
