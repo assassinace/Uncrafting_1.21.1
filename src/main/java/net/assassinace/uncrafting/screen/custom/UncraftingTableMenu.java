@@ -3,6 +3,7 @@ package net.assassinace.uncrafting.screen.custom;
 import net.assassinace.uncrafting.block.ModBlocks;
 import net.assassinace.uncrafting.block.entity.custom.UncraftingTableBlockEntity;
 import net.assassinace.uncrafting.screen.ModMenuTypes;
+import net.assassinace.uncrafting.screen.custom.slot.InputSlot;
 import net.assassinace.uncrafting.screen.custom.slot.OutputSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,9 +14,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class UncraftingTableMenu extends AbstractContainerMenu {
+    public boolean shouldReturnOutputs = false;
+    private Player linkedPlayer; // to store the player using the menu
     public final UncraftingTableBlockEntity blockEntity;
     private final Level level;
 
@@ -27,11 +29,12 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
             super(ModMenuTypes.UNCRAFTING_TABLE_MENU.get(), pContainerId);
             this.blockEntity = ((UncraftingTableBlockEntity) blockEntity);
             this.level = inv.player.level();
+            this.linkedPlayer = inv.player;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(this.blockEntity.getItemHandler(), 0, 35, 35));
+        this.addSlot(new InputSlot(this.blockEntity, this.blockEntity.getItemHandler(), 0, 35, 35));
 
         // Output slots (3x3 grid)
         for (int row = 0; row < 3; row++) {
@@ -112,6 +115,59 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     private void addPlayerHotbar(Inventory playerInventory) {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(playerInventory, i, 7 + i * 18, 142));
+        }
+    }
+
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+
+        if (!pPlayer.level().isClientSide) {
+            // Return input item
+            ItemStack input = blockEntity.getItemHandler().getStackInSlot(0);
+            if (!input.isEmpty()) {
+                boolean success = pPlayer.getInventory().add(input);
+                if (!success) {
+                    pPlayer.drop(input, false);
+                }
+                blockEntity.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+            }
+
+            // Return remaining output items
+            for (int i = 1; i <= 9; i++) {
+                ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
+                if (!stack.isEmpty()) {
+                    boolean success = pPlayer.getInventory().add(stack);
+                    if (!success) {
+                        pPlayer.drop(stack, false);
+                    }
+                    blockEntity.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
+                }
+            }
+        }
+    }
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+
+        if (shouldReturnOutputs && !linkedPlayer.level().isClientSide) {
+            shouldReturnOutputs = false;
+
+            for (int i = 1; i <= 9; i++) {
+                ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
+                if (!stack.isEmpty()) {
+                    net.minecraftforge.items.ItemHandlerHelper.giveItemToPlayer(linkedPlayer, stack.copy());
+                    blockEntity.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
+                }
+            }
+
+            blockEntity.setChanged();
+            level.sendBlockUpdated(
+                    blockEntity.getBlockPos(),
+                    blockEntity.getBlockState(),
+                    blockEntity.getBlockState(),
+                    3
+            );
         }
     }
 }

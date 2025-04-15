@@ -142,8 +142,13 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
 
             List<RecipeHolder<CraftingRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
             Optional<RecipeHolder<CraftingRecipe>> match = recipes.stream()
-                    .filter(r -> ItemStack.isSameItemSameComponents(r.value().getResultItem(level.registryAccess()), input))
+                    .filter(r -> {
+                        ItemStack result = r.value().getResultItem(level.registryAccess());
+                        return ItemStack.isSameItemSameComponents(result, input)
+                                && input.getCount() >= result.getCount(); // ← new check
+                    })
                     .findFirst();
+
 
             if (match.isEmpty()) {
                 clearOutputs();
@@ -152,7 +157,13 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
 
             CraftingRecipe recipe = match.get().value();
             List<Ingredient> ingredients = recipe.getIngredients();
-            int multiplier = input.getCount();
+            int recipeOutputCount = recipe.getResultItem(level.registryAccess()).getCount();
+            if (input.getCount() < recipeOutputCount) {
+                clearOutputs();
+                return;
+            }
+            int multiplier = input.getCount() / recipeOutputCount;
+
 
             for (int i = 0; i < 9; i++) {
                 if (i < ingredients.size()) {
@@ -179,5 +190,16 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
 
     public LazyOptional<IItemHandler> getLazyItemHandler() {
         return lazyItemHandler;
+    }
+    public boolean hasOutputItems() {
+        for (int i = OUTPUT_START; i <= OUTPUT_END; i++) {
+            if (!itemHandler.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void setSuppressOutputUpdate(boolean value) {
+        this.suppressOutputUpdate = value;
     }
 }

@@ -1,6 +1,7 @@
 package net.assassinace.uncrafting.screen.custom.slot;
 
 import net.assassinace.uncrafting.block.entity.custom.UncraftingTableBlockEntity;
+import net.assassinace.uncrafting.screen.custom.UncraftingTableMenu;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
@@ -21,32 +22,19 @@ public class OutputSlot extends SlotItemHandler {
     }
 
     @Override
-    public void onTake(@NotNull Player pPlayer, @NotNull ItemStack pStack) {
-        super.onTake(pPlayer, pStack);
+    public void onTake(Player player, ItemStack stack) {
+        super.onTake(player, stack);
 
-        ItemStack input = blockEntity.getItemHandler().getStackInSlot(0);
-        if (input.isEmpty()) return; // Prevent crash if slot is empty or null
+        if (player.level().isClientSide) return;
 
-        int totalOutputItems = 0;
-        for (int i = 1; i <= 9; i++) {
-            ItemStack output = blockEntity.getItemHandler().getStackInSlot(i);
-            if (!output.isEmpty()) {
-                totalOutputItems += output.getCount();
-            }
+        blockEntity.setSuppressOutputUpdate(true);
+        blockEntity.getItemHandler().extractItem(0, 1, false);
+        blockEntity.setSuppressOutputUpdate(false);
+
+        // Flag to return all outputs in the next tick from the menu
+        if (player.containerMenu instanceof UncraftingTableMenu menu) {
+            menu.shouldReturnOutputs = true;
         }
-
-        final int recipeOutputCount = 4; // or calculate dynamically
-        int remainingInputs = totalOutputItems / recipeOutputCount;
-
-        int currentInputs = input.getCount();
-        int inputsToRemove = currentInputs - remainingInputs;
-
-        if (inputsToRemove > 0) {
-            blockEntity.getItemHandler().extractItem(0, inputsToRemove, false);
-        }
-
-        blockEntity.updateUncraftingOutputs();
     }
-
-
 }
+
