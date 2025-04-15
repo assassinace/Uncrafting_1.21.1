@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "uncrafting:diamond_dust"
+      "item": "uncrafting:netherite_nugget"
     }
   },
   "pattern": [
@@ -13,6 +13,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "uncrafting:diamond_nugget"
+    "id": "minecraft:netherite_ingot"
   }
 }

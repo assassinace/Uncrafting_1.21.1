@@ -63,6 +63,12 @@ public class Uncrafting {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(ModItems.DIAMOND_NUGGET);
+            event.accept(ModItems.NETHERITE_NUGGET);
+            event.accept(ModItems.DIAMOND_DUST);
+            event.accept(ModItems.IRON_DUST);
+            event.accept(ModItems.GOLD_DUST);
+            event.accept(ModItems.NETHERITE_DUST);
+            event.accept(ModItems.SAWDUST);
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {

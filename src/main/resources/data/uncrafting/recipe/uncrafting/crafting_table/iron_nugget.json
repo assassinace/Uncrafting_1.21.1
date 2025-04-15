@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "uncrafting:diamond_dust"
+      "item": "uncrafting:iron_dust"
     }
   },
   "pattern": [
@@ -13,6 +13,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "uncrafting:diamond_nugget"
+    "id": "minecraft:iron_nugget"
   }
 }

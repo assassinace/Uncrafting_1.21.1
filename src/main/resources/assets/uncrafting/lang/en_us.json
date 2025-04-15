@@ -1,5 +1,11 @@
 {
   "item.uncrafting.diamond_nugget": "Diamond Nugget",
+  "item.uncrafting.diamond_dust": "Diamond Dust",
+  "item.uncrafting.netherite_nugget": "Netherite Nugget",
+  "item.uncrafting.netherite_dust": "Netherite Dust",
+  "item.uncrafting.gold_dust": "Gold Dust",
+  "item.uncrafting.iron_dust": "Iron Dust",
+  "item.uncrafting.sawdust": "Sawdust",
 
   "block.uncrafting.uncrafting_table": "Uncrafting Table",
   "itemGroup.uncrafting_tab": "Uncrafting Mod",

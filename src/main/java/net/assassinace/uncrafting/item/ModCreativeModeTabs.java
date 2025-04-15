@@ -18,9 +18,14 @@ public static final RegistryObject<CreativeModeTab> UNCRAFTING_TABLE = CREATIVE_
         () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.UNCRAFTING_TABLE.get()))
                 .title(Component.translatable("creativetab.uncrafting.uncrafting"))
                 .displayItems((ItemDisplayParameters, output) -> {
+                    output.accept(ModItems.SAWDUST.get());
+                    output.accept(ModItems.IRON_DUST.get());
+                    output.accept(ModItems.GOLD_DUST.get());
+                    output.accept(ModItems.DIAMOND_DUST.get());
                     output.accept(ModItems.DIAMOND_NUGGET.get());
+                    output.accept(ModItems.NETHERITE_DUST.get());
+                    output.accept(ModItems.NETHERITE_NUGGET.get());
                     output.accept(ModBlocks.UNCRAFTING_TABLE.get());
-
                 }).build());
 
 
