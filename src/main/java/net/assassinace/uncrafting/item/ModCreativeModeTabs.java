@@ -18,14 +18,32 @@ public static final RegistryObject<CreativeModeTab> UNCRAFTING_TABLE = CREATIVE_
         () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModBlocks.UNCRAFTING_TABLE.get()))
                 .title(Component.translatable("creativetab.uncrafting.uncrafting"))
                 .displayItems((ItemDisplayParameters, output) -> {
+                    output.accept(ModBlocks.UNCRAFTING_TABLE.get());
                     output.accept(ModItems.SAWDUST.get());
+                    output.accept(ModItems.COAL_DUST.get());
+                    output.accept(ModItems.COAL_NUGGET.get());
+                    output.accept(ModItems.RAW_COPPER_DUST.get());
+                    output.accept(ModItems.COPPER_DUST.get());
+                    output.accept(ModItems.RAW_COPPER_NUGGET.get());
+                    output.accept(ModItems.COPPER_NUGGET.get());
+                    output.accept(ModItems.RAW_IRON_DUST.get());
                     output.accept(ModItems.IRON_DUST.get());
+                    output.accept(ModItems.RAW_IRON_NUGGET.get());
+                    output.accept(ModItems.RAW_GOLD_DUST.get());
                     output.accept(ModItems.GOLD_DUST.get());
+                    output.accept(ModItems.RAW_GOLD_NUGGET.get());
+                    output.accept(ModItems.RAW_DIAMOND_DUST.get());
                     output.accept(ModItems.DIAMOND_DUST.get());
+                    output.accept(ModItems.RAW_DIAMOND_NUGGET.get());
                     output.accept(ModItems.DIAMOND_NUGGET.get());
+                    output.accept(ModItems.RAW_DIAMOND.get());
+                    output.accept(ModItems.RAW_EMERALD_DUST.get());
+                    output.accept(ModItems.EMERALD_DUST.get());
+                    output.accept(ModItems.RAW_EMERALD_NUGGET.get());
+                    output.accept(ModItems.EMERALD_NUGGET.get());
+                    output.accept(ModItems.RAW_EMERALD.get());
                     output.accept(ModItems.NETHERITE_DUST.get());
                     output.accept(ModItems.NETHERITE_NUGGET.get());
-                    output.accept(ModBlocks.UNCRAFTING_TABLE.get());
                 }).build());
 
 

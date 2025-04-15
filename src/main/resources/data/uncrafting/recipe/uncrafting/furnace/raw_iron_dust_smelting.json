@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 18,
+    "experience": 0.022,
+    "ingredient": {
+        "item": "uncrafting:raw_iron_dust"
+    },
+    "result": {
+        "id": "uncrafting:iron_dust"
+    }
+}

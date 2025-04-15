@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "minecraft:golden_horse_armor"
+      "item": "minecraft:charcoal"
     }
   ],
   "result": {
-    "count": 6,
-    "id": "minecraft:gold_ingot"
+    "count": 1,
+    "id": "minecraft:coal"
   }
 }

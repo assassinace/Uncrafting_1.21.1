@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:blasting",
+    "category": "misc",
+    "cookingtime": 18,
+    "experience": 0.044,
+    "ingredient": {
+        "item": "uncrafting:raw_diamond_dust"
+    },
+    "result": {
+        "id": "uncrafting:diamond_dust"
+    }
+}

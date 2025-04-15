@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 9,
+    "experience": 0.011,
+    "ingredient": {
+        "item": "uncrafting:raw_copper_dust"
+    },
+    "result": {
+        "id": "uncrafting:copper_dust"
+    }
+}

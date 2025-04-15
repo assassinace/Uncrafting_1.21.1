@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 36,
+    "experience": 0.044,
+    "ingredient": {
+        "item": "uncrafting:raw_diamond_dust"
+    },
+    "result": {
+        "id": "uncrafting:diamond_dust"
+    }
+}

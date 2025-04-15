@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:blasting",
+    "category": "misc",
+    "cookingtime": 2187,
+    "experience": 5.346,
+    "ingredient": {
+        "item": "minecraft:ancient_debris"
+    },
+    "result": {
+        "id": "minecraft:netherite_scrap"
+    }
+}

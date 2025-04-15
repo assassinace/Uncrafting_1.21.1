@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 27,
+    "experience": 0.033,
+    "ingredient": {
+        "item": "uncrafting:raw_gold_dust"
+    },
+    "result": {
+        "id": "uncrafting:gold_dust"
+    }
+}

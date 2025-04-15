@@ -1,14 +1,41 @@
 {
-  "item.uncrafting.diamond_nugget": "Diamond Nugget",
-  "item.uncrafting.diamond_dust": "Diamond Dust",
-  "item.uncrafting.netherite_nugget": "Netherite Nugget",
-  "item.uncrafting.netherite_dust": "Netherite Dust",
-  "item.uncrafting.gold_dust": "Gold Dust",
-  "item.uncrafting.iron_dust": "Iron Dust",
   "item.uncrafting.sawdust": "Sawdust",
 
+  "item.uncrafting.coal_dust": "Coal Dust",
+  "item.uncrafting.coal_nugget": "Coal Nugget",
+
+  "item.uncrafting.raw_copper_dust": "Raw Copper Dust",
+  "item.uncrafting.copper_dust": "Copper Dust",
+  "item.uncrafting.raw_copper_nugget": "Raw Copper Nugget",
+  "item.uncrafting.copper_nugget": "Copper Nugget",
+
+  "item.uncrafting.raw_iron_dust": "Raw Iron Dust",
+  "item.uncrafting.iron_dust": "Iron Dust",
+  "item.uncrafting.raw_iron_nugget": "Raw Iron Nugget",
+
+  "item.uncrafting.raw_gold_dust": "Raw Gold Dust",
+  "item.uncrafting.gold_dust": "Gold Dust",
+  "item.uncrafting.raw_gold_nugget": "Raw Gold Nugget",
+
+  "item.uncrafting.raw_diamond_dust": "Raw Diamond Dust",
+  "item.uncrafting.diamond_dust": "Diamond Dust",
+  "item.uncrafting.diamond_nugget": "Diamond Nugget",
+  "item.uncrafting.raw_diamond_nugget": "Raw Diamond Nugget",
+  "item.uncrafting.raw_diamond": "Raw Diamond",
+
+  "item.uncrafting.raw_emerald_dust": "Raw Emerald Dust",
+  "item.uncrafting.emerald_dust": "Emerald Dust",
+  "item.uncrafting.raw_emerald_nugget": "Raw Emerald Nugget",
+  "item.uncrafting.emerald_nugget": "Emerald Nugget",
+  "item.uncrafting.raw_emerald": "Raw Emerald",
+
+  "item.uncrafting.netherite_dust": "Netherite Dust",
+  "item.uncrafting.netherite_nugget": "Netherite Nugget",
+
   "block.uncrafting.uncrafting_table": "Uncrafting Table",
+
   "itemGroup.uncrafting_tab": "Uncrafting Mod",
+
   "inventory.uncrafting_table": "Uncrafting Table",
 
   "creativetab.uncrafting.uncrafting": "Uncrafting"

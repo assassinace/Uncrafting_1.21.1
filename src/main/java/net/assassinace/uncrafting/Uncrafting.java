@@ -62,13 +62,40 @@ public class Uncrafting {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.DIAMOND_NUGGET);
-            event.accept(ModItems.NETHERITE_NUGGET);
-            event.accept(ModItems.DIAMOND_DUST);
-            event.accept(ModItems.IRON_DUST);
-            event.accept(ModItems.GOLD_DUST);
-            event.accept(ModItems.NETHERITE_DUST);
+
             event.accept(ModItems.SAWDUST);
+
+            event.accept(ModItems.COAL_DUST);
+            event.accept(ModItems.COAL_NUGGET);
+
+            event.accept(ModItems.RAW_COPPER_DUST);
+            event.accept(ModItems.COPPER_DUST);
+            event.accept(ModItems.RAW_COPPER_NUGGET);
+            event.accept(ModItems.COPPER_NUGGET);
+
+            event.accept(ModItems.RAW_IRON_DUST);
+            event.accept(ModItems.IRON_DUST);
+            event.accept(ModItems.RAW_IRON_NUGGET);
+
+            event.accept(ModItems.RAW_GOLD_DUST);
+            event.accept(ModItems.GOLD_DUST);
+            event.accept(ModItems.RAW_GOLD_NUGGET);
+
+            event.accept(ModItems.RAW_DIAMOND_DUST);
+            event.accept(ModItems.DIAMOND_DUST);
+            event.accept(ModItems.RAW_DIAMOND_NUGGET);
+            event.accept(ModItems.DIAMOND_NUGGET);
+            event.accept(ModItems.RAW_DIAMOND);
+
+            event.accept(ModItems.RAW_EMERALD_DUST);
+            event.accept(ModItems.EMERALD_DUST);
+            event.accept(ModItems.RAW_EMERALD_NUGGET);
+            event.accept(ModItems.EMERALD_NUGGET);
+            event.accept(ModItems.RAW_EMERALD);
+
+            event.accept(ModItems.NETHERITE_DUST);
+            event.accept(ModItems.NETHERITE_NUGGET);
+
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {

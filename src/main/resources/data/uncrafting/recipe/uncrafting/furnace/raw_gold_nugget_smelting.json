@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 243,
+    "experience": 0.297,
+    "ingredient": {
+        "item": "uncrafting:raw_gold_nugget"
+    },
+    "result": {
+        "id": "minecraft:gold_nugget"
+    }
+}

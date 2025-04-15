@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:blasting",
+    "category": "misc",
+    "cookingtime": 202,
+    "experience": 0.495,
+    "ingredient": {
+        "item": "uncrafting:raw_emerald_nugget"
+    },
+    "result": {
+        "id": "uncrafting:emerald_nugget"
+    }
+}

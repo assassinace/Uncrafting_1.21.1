@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:blasting",
+    "category": "misc",
+    "cookingtime": 13,
+    "experience": 0.033,
+    "ingredient": {
+        "item": "uncrafting:raw_gold_dust"
+    },
+    "result": {
+        "id": "uncrafting:gold_dust"
+    }
+}

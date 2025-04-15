@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:smelting",
+    "category": "misc",
+    "cookingtime": 3645,
+    "experience": 4.455,
+    "group": "emerald",
+    "ingredient": {
+        "item": "uncrafting:raw_emerald"
+    },
+    "result": {
+        "id": "minecraft:emerald"
+    }
+}
