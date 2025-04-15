@@ -67,6 +67,18 @@ public class ModLootTableOverrides {
     public static void onLootTableLoad(LootTableLoadEvent event) {
         ResourceLocation tableId = event.getName();
 
+        // Apply sawdust drop to all logs
+        if (tableId.getNamespace().equals("minecraft") && tableId.getPath().startsWith("blocks/") && tableId.getPath().endsWith("_log")) {
+            event.getTable().addPool(LootPool.lootPool()
+                    .name("uncrafting_sawdust_log_bonus")
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(ModItems.SAWDUST.get())
+                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 3))))
+                    .build());
+            System.out.println("[Uncrafting] Added sawdust bonus drop to: " + tableId);
+        }
+
+        // ORE OVERRIDES
         if (ORE_OVERRIDES.containsKey(tableId)) {
             try {
                 Field poolsField = LootTable.class.getDeclaredField("pools");
@@ -81,14 +93,12 @@ public class ModLootTableOverrides {
 
             OreDropConfig config = ORE_OVERRIDES.get(tableId);
 
-            // Main guaranteed drop
             event.getTable().addPool(LootPool.lootPool()
                     .name("uncrafting_main")
                     .setRolls(ConstantValue.exactly(1))
                     .add(LootItem.lootTableItem(config.mainDrop().get()))
                     .build());
 
-            // Random dust (0–3)
             event.getTable().addPool(LootPool.lootPool()
                     .name("uncrafting_dust")
                     .setRolls(ConstantValue.exactly(1))
@@ -96,7 +106,6 @@ public class ModLootTableOverrides {
                             .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 3))))
                     .build());
 
-            // Random nugget (0–1)
             event.getTable().addPool(LootPool.lootPool()
                     .name("uncrafting_nugget")
                     .setRolls(ConstantValue.exactly(1))
@@ -105,7 +114,6 @@ public class ModLootTableOverrides {
                     .build());
         }
     }
-
     private record OreDropConfig(Supplier<Item> mainDrop,
                                  Supplier<Item> dust,
                                  Supplier<Item> nugget) {}
