@@ -181,6 +181,15 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
             }
 
             int multiplier = input.getCount() / recipeOutputCount;
+            int used = multiplier * recipeOutputCount;
+            int remainder = input.getCount() - used;
+
+            ItemStack leftover = input.copy();
+            leftover.setCount(remainder);
+            itemHandler.setStackInSlot(INPUT_SLOT, leftover);
+
+            markInputConsumed();
+
             NonNullList<ItemStack> layout = NonNullList.withSize(9, ItemStack.EMPTY);
 
             if (recipe instanceof net.minecraft.world.item.crafting.ShapedRecipe shaped) {

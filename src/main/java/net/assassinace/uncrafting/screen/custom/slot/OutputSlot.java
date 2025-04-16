@@ -23,14 +23,5 @@ public class OutputSlot extends SlotItemHandler {
     @Override
     public void onTake(Player player, ItemStack stack) {
         super.onTake(player, stack);
-
-        if (player.level().isClientSide) return;
-
-        if (!blockEntity.wasInputConsumed()) {
-            blockEntity.setSuppressOutputUpdate(true);
-            blockEntity.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-            blockEntity.markInputConsumed(); // important!
-            blockEntity.setSuppressOutputUpdate(false);
-        }
     }
 }
