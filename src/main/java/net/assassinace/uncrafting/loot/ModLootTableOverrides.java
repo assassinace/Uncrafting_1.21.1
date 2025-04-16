@@ -26,41 +26,41 @@ public class ModLootTableOverrides {
     private static final Map<ResourceLocation, OreDropConfig> ORE_OVERRIDES = Map.ofEntries(
             // Coal
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/coal_ore"),
-                    new OreDropConfig(() -> Items.COAL, ModItems.COAL_DUST::get, ModItems.COAL_NUGGET::get)),
+                    new OreDropConfig(() -> Items.COAL, ModItems.COAL_DUST, ModItems.COAL_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_coal_ore"),
-                    new OreDropConfig(() -> Items.COAL, ModItems.COAL_DUST::get, ModItems.COAL_NUGGET::get)),
+                    new OreDropConfig(() -> Items.COAL, ModItems.COAL_DUST, ModItems.COAL_NUGGET)),
 
             // Copper
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/copper_ore"),
-                    new OreDropConfig(() -> Items.RAW_COPPER, ModItems.RAW_COPPER_DUST::get, ModItems.RAW_COPPER_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_COPPER, ModItems.RAW_COPPER_DUST, ModItems.RAW_COPPER_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_copper_ore"),
-                    new OreDropConfig(() -> Items.RAW_COPPER, ModItems.RAW_COPPER_DUST::get, ModItems.RAW_COPPER_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_COPPER, ModItems.RAW_COPPER_DUST, ModItems.RAW_COPPER_NUGGET)),
 
             // Iron
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/iron_ore"),
-                    new OreDropConfig(() -> Items.RAW_IRON, ModItems.RAW_IRON_DUST::get, ModItems.RAW_IRON_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_IRON, ModItems.RAW_IRON_DUST, ModItems.RAW_IRON_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_iron_ore"),
-                    new OreDropConfig(() -> Items.RAW_IRON, ModItems.RAW_IRON_DUST::get, ModItems.RAW_IRON_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_IRON, ModItems.RAW_IRON_DUST, ModItems.RAW_IRON_NUGGET)),
 
             // Gold
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/gold_ore"),
-                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST::get, ModItems.RAW_GOLD_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST, ModItems.RAW_GOLD_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_gold_ore"),
-                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST::get, ModItems.RAW_GOLD_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST, ModItems.RAW_GOLD_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/nether_gold_ore"),
-                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST::get, ModItems.RAW_GOLD_NUGGET::get)),
+                    new OreDropConfig(() -> Items.RAW_GOLD, ModItems.RAW_GOLD_DUST, ModItems.RAW_GOLD_NUGGET)),
 
             // Diamond
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/diamond_ore"),
-                    new OreDropConfig(ModItems.RAW_DIAMOND::get, ModItems.RAW_DIAMOND_DUST::get, ModItems.RAW_DIAMOND_NUGGET::get)),
+                    new OreDropConfig(ModItems.RAW_DIAMOND, ModItems.RAW_DIAMOND_DUST, ModItems.RAW_DIAMOND_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_diamond_ore"),
-                    new OreDropConfig(ModItems.RAW_DIAMOND::get, ModItems.RAW_DIAMOND_DUST::get, ModItems.RAW_DIAMOND_NUGGET::get)),
+                    new OreDropConfig(ModItems.RAW_DIAMOND, ModItems.RAW_DIAMOND_DUST, ModItems.RAW_DIAMOND_NUGGET)),
 
             // Emerald
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/emerald_ore"),
-                    new OreDropConfig(ModItems.RAW_EMERALD::get, ModItems.RAW_EMERALD_DUST::get, ModItems.RAW_EMERALD_NUGGET::get)),
+                    new OreDropConfig(ModItems.RAW_EMERALD, ModItems.RAW_EMERALD_DUST, ModItems.RAW_EMERALD_NUGGET)),
             Map.entry(ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/deepslate_emerald_ore"),
-                    new OreDropConfig(ModItems.RAW_EMERALD::get, ModItems.RAW_EMERALD_DUST::get, ModItems.RAW_EMERALD_NUGGET::get))
+                    new OreDropConfig(ModItems.RAW_EMERALD, ModItems.RAW_EMERALD_DUST, ModItems.RAW_EMERALD_NUGGET))
     );
 
     @SubscribeEvent

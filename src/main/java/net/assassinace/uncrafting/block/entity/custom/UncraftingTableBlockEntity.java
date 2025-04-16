@@ -34,6 +34,7 @@ import java.util.Optional;
 
 public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvider {
     private boolean suppressOutputUpdate = false;
+    private int lastRecipeOutputCount = 1; // fallback value
     private final NonNullList<ItemStack> expectedOutput = NonNullList.withSize(9, ItemStack.EMPTY);
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(10) {
@@ -46,8 +47,13 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (!level.isClientSide() && !suppressOutputUpdate) {
-                updateUncraftingOutputs();
+            if (!level.isClientSide() && !suppressOutputUpdate && slot == INPUT_SLOT) {
+                ItemStack input = getStackInSlot(INPUT_SLOT);
+                if (input.isEmpty() && !inputConsumed) {
+                    clearOutputs();  // Clear outputs if input was manually removed
+                } else {
+                    updateUncraftingOutputs();
+                }
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
@@ -127,6 +133,7 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
         } finally {
             suppressOutputUpdate = false;
         }
+        inputConsumed = false;
     }
 
 
@@ -137,9 +144,13 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
         try {
             ItemStack input = itemHandler.getStackInSlot(INPUT_SLOT);
 
+            // Reset the flag here BEFORE we check it again
+            if (inputConsumed) {
+                inputConsumed = false; // allow re-use of table
+            }
+
             if (input.isEmpty() || input.isEnchanted() || (input.isDamageableItem() && input.isDamaged())) {
-                clearOutputs();
-                setExpectedOutput(NonNullList.withSize(9, ItemStack.EMPTY));
+                clearOutputs();  // make sure orphaned outputs are cleared
                 return;
             }
 
@@ -161,6 +172,8 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
             CraftingRecipe recipe = match.get().value();
             List<Ingredient> ingredients = recipe.getIngredients();
             int recipeOutputCount = recipe.getResultItem(level.registryAccess()).getCount();
+            lastRecipeOutputCount = recipeOutputCount;
+
             if (input.getCount() < recipeOutputCount) {
                 clearOutputs();
                 setExpectedOutput(NonNullList.withSize(9, ItemStack.EMPTY));
@@ -215,11 +228,39 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
         return expectedOutput;
     }
 
+    private boolean inputConsumed = false;
+
+    public boolean wasInputConsumed() {
+        return inputConsumed;
+    }
+
+    public void markInputConsumed() {
+        inputConsumed = true;
+    }
+
+
+    public int getLastRecipeOutputCount() {
+        return lastRecipeOutputCount;
+    }
+
     private void setExpectedOutput(List<ItemStack> shapedOutput) {
         for (int i = 0; i < 9; i++) {
             expectedOutput.set(i, shapedOutput.get(i).copy());
         }
     }
+    public boolean canStillUncraft(ItemStack input) {
+        if (input.isEmpty() || input.isEnchanted() || (input.isDamageableItem() && input.isDamaged()))
+            return false;
 
+        List<RecipeHolder<CraftingRecipe>> recipes = level.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING);
+        Optional<RecipeHolder<CraftingRecipe>> match = recipes.stream()
+                .filter(r -> {
+                    ItemStack result = r.value().getResultItem(level.registryAccess());
+                    return ItemStack.isSameItemSameComponents(result, input)
+                            && input.getCount() >= result.getCount();
+                })
+                .findFirst();
 
+        return match.isPresent();
+    }
 }

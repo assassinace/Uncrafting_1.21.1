@@ -97,24 +97,39 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     }
 
     @Override
-    public void removed(Player pPlayer) {
-        super.removed(pPlayer);
+    public void removed(Player player) {
+        super.removed(player);
 
-        if (!pPlayer.level().isClientSide) {
-            for (int i = 0; i < blockEntity.getItemHandler().getSlots(); i++) {
-                if (i >= OUTPUT_SLOT_START && i < OUTPUT_SLOT_END || i == 0) {
-                    ItemStack stack = blockEntity.getItemHandler().getStackInSlot(i);
-                    if (!stack.isEmpty()) {
-                        boolean success = pPlayer.getInventory().add(stack);
+        if (!player.level().isClientSide) {
+            if (!blockEntity.wasInputConsumed()) {
+                // Return input
+                ItemStack input = blockEntity.getItemHandler().getStackInSlot(0);
+                if (!input.isEmpty()) {
+                    boolean success = player.getInventory().add(input);
+                    if (!success) {
+                        player.drop(input, false);
+                    }
+                    blockEntity.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+                }
+            } else {
+                // Return remaining outputs
+                for (int i = OUTPUT_SLOT_START; i < OUTPUT_SLOT_END; i++) {
+                    ItemStack out = blockEntity.getItemHandler().getStackInSlot(i);
+                    if (!out.isEmpty()) {
+                        boolean success = player.getInventory().add(out);
                         if (!success) {
-                            pPlayer.drop(stack, false);
+                            player.drop(out, false);
                         }
                         blockEntity.getItemHandler().setStackInSlot(i, ItemStack.EMPTY);
                     }
                 }
             }
+
+            blockEntity.setChanged(); // Ensure changes are persisted
         }
     }
+
+
 
 
     @Override
@@ -138,19 +153,46 @@ public class UncraftingTableMenu extends AbstractContainerMenu {
     }
 
     public void onOutputTaken(int slotIndex) {
-        int expectedIndex = slotIndex - OUTPUT_SLOT_START;
-        if (expectedIndex < 0 || expectedIndex >= blockEntity.getExpectedOutput().size()) return;
+        if (blockEntity.getExpectedOutput().isEmpty()) return;
 
-        ItemStack expected = blockEntity.getExpectedOutput().get(expectedIndex);
-        ItemStack actual = getSlot(slotIndex).getItem();
+        List<ItemStack> expected = blockEntity.getExpectedOutput();
+        int setsTaken = Integer.MAX_VALUE; // we’ll find the minimum # of full recipe sets remaining
 
-        boolean stillValid =
-                ItemStack.isSameItemSameComponents(actual, expected) &&
-                        actual.getCount() >= expected.getCount();
+        for (int i = 0; i < 9; i++) {
+            int outputSlotIndex = i + OUTPUT_SLOT_START;
+            ItemStack expectedStack = expected.get(i);
+            ItemStack actualStack = getSlot(outputSlotIndex).getItem();
 
-        if (!stillValid) {
+            if (!expectedStack.isEmpty()) {
+                int expectedPerSet = expectedStack.getCount();
+
+                if (expectedPerSet == 0) continue; // no item to compare
+
+                // How many *full* sets are left in this slot?
+                int remainingSets = actualStack.getCount() / expectedPerSet;
+
+                setsTaken = Math.min(setsTaken, remainingSets);
+            }
+        }
+
+        // Number of sets consumed = how many we removed from the grid
+        int currentInputCount = blockEntity.getItemHandler().getStackInSlot(0).getCount();
+        int inputUsed = blockEntity.getLastRecipeOutputCount();
+
+        int expectedMaxSets = currentInputCount / inputUsed;
+        int setsRemoved = expectedMaxSets - setsTaken;
+
+        if (setsRemoved > 0) {
             blockEntity.setSuppressOutputUpdate(true);
-            blockEntity.getItemHandler().extractItem(0, 1, false);
+            blockEntity.getItemHandler().extractItem(0, setsRemoved, false);
+            blockEntity.setSuppressOutputUpdate(false);
+            blockEntity.updateUncraftingOutputs();
+        }
+
+        // Clean up if input can't support even 1 more recipe
+        ItemStack input = blockEntity.getItemHandler().getStackInSlot(0);
+        if (input.isEmpty() || !blockEntity.canStillUncraft(input)) {
+            blockEntity.setSuppressOutputUpdate(true);
             blockEntity.clearOutputs();
             blockEntity.setSuppressOutputUpdate(false);
         }
