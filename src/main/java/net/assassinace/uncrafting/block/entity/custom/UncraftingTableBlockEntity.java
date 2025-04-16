@@ -183,13 +183,42 @@ public class UncraftingTableBlockEntity extends BlockEntity implements MenuProvi
             int multiplier = input.getCount() / recipeOutputCount;
             NonNullList<ItemStack> layout = NonNullList.withSize(9, ItemStack.EMPTY);
 
-            for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient ing = ingredients.get(i);
-                ItemStack[] matches = ing.getItems();
-                if (matches.length > 0) {
-                    ItemStack copy = matches[0].copy();
-                    copy.setCount(multiplier);
-                    layout.set(i, copy);
+            if (recipe instanceof net.minecraft.world.item.crafting.ShapedRecipe shaped) {
+                int width = shaped.getWidth();
+                int height = shaped.getHeight();
+                List<Ingredient> shapedIngredients = shaped.getIngredients();
+
+                // Center the recipe within the 3x3 grid
+                int xOffset = (3 - width) / 2;
+                int yOffset = (3 - height) / 2;
+
+                for (int row = 0; row < height; row++) {
+                    for (int col = 0; col < width; col++) {
+                        int shapedIndex = row * width + col;
+                        int layoutRow = row + yOffset;
+                        int layoutCol = col + xOffset;
+
+                        if (shapedIndex >= shapedIngredients.size() || layoutRow >= 3 || layoutCol >= 3) continue;
+
+                        int layoutIndex = layoutRow * 3 + layoutCol;
+
+                        Ingredient ing = shapedIngredients.get(shapedIndex);
+                        if (!ing.isEmpty() && ing.getItems().length > 0) {
+                            ItemStack copy = ing.getItems()[0].copy();
+                            copy.setCount(multiplier);
+                            layout.set(layoutIndex, copy);
+                        }
+                    }
+                }
+            } else {
+                // fallback for shapeless (pack left to right)
+                for (int i = 0; i < ingredients.size() && i < 9; i++) {
+                    Ingredient ing = ingredients.get(i);
+                    if (!ing.isEmpty() && ing.getItems().length > 0) {
+                        ItemStack copy = ing.getItems()[0].copy();
+                        copy.setCount(multiplier);
+                        layout.set(i, copy);
+                    }
                 }
             }
 
