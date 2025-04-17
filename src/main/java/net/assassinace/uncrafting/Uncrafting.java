@@ -48,7 +48,6 @@ public class Uncrafting {
 
         ModMenuTypes.register(modEventBus);
 
-
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
@@ -98,7 +97,7 @@ public class Uncrafting {
 
         }
 
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             event.accept(ModBlocks.UNCRAFTING_TABLE);
         }
     }

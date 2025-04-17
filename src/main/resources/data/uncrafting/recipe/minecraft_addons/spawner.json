@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_bars"
+    },
+    "F": {
+      "item": "minecraft:fire_charge"
+    },
+    "W": {
+      "item": "minecraft:wind_charge"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "E": {
+      "item": "minecraft:end_crystal"
+    }
+  },
+  "pattern": [
+    "EIF",
+    "III",
+    "WIB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:spawner"
+  }
+}
