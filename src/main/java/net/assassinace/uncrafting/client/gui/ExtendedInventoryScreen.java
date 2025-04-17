@@ -49,6 +49,7 @@ public class ExtendedInventoryScreen extends InventoryScreen {
 
         Player player = Minecraft.getInstance().player;
         if (player != null) {
+            RenderSystem.enableDepthTest(); // ← CRITICAL to allow proper 3D rendering
             InventoryScreen.renderEntityInInventoryFollowsMouse(
                     guiGraphics,
                     this.leftPos + 51,        // X position
@@ -56,9 +57,9 @@ public class ExtendedInventoryScreen extends InventoryScreen {
                     30,                       // scale
                     this.leftPos + 51 - mouseX,
                     this.topPos + 75 - 50 - mouseY,
-                    180.0F,                   // body yaw
-                    180.0F,                   // head yaw
-                    0.0F,                     // pitch
+                    180.0F,
+                    180.0F,
+                    0.0F,
                     player
             );
         }
