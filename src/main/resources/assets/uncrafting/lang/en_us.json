@@ -32,6 +32,17 @@
   "item.uncrafting.netherite_dust": "Netherite Dust",
   "item.uncrafting.netherite_nugget": "Netherite Nugget",
 
+  "item.uncrafting.emerald_helmet": "Emerald Helmet",
+  "item.uncrafting.emerald_chestplate": "Emerald Chestplate",
+  "item.uncrafting.emerald_leggings": "Emerald Leggings",
+  "item.uncrafting.emerald_boots": "Emerald Boots",
+
+  "item.uncrafting.copper_helmet": "Copper Diving Helmet",
+  "item.uncrafting.copper_chestplate": "Copper Chestplate",
+  "item.uncrafting.copper_leggings": "Copper Leggings",
+  "item.uncrafting.copper_boots": "Copper Boots",
+
+
   "block.uncrafting.uncrafting_table": "Uncrafting Table",
 
   "itemGroup.uncrafting_tab": "Uncrafting Mod",
