@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedHashMap;
@@ -61,6 +62,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(ModItems.EMERALD_CHESTPLATE);
         trimmedArmorItem(ModItems.EMERALD_LEGGINGS);
         trimmedArmorItem(ModItems.EMERALD_BOOTS);
+
+        basicItem(ModItems.CHAINMAIL_HORSE_ARMOR.get());
+        basicItem(ModItems.COPPER_HORSE_ARMOR.get());
+        basicItem(ModItems.EMERALD_HORSE_ARMOR.get());
+        basicItem(ModItems.NETHERITE_HORSE_ARMOR.get());
     }
 
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {

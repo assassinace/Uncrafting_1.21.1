@@ -62,6 +62,10 @@ public static final RegistryObject<CreativeModeTab> UNCRAFTING_TABLE = CREATIVE_
                     output.accept(ModItems.EMERALD_CHESTPLATE.get());
                     output.accept(ModItems.EMERALD_LEGGINGS.get());
                     output.accept(ModItems.EMERALD_BOOTS.get());
+                    output.accept(ModItems.CHAINMAIL_HORSE_ARMOR.get());
+                    output.accept(ModItems.COPPER_HORSE_ARMOR.get());
+                    output.accept(ModItems.EMERALD_HORSE_ARMOR.get());
+                    output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
 
                 }).build());
 

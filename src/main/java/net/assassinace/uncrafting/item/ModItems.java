@@ -22,6 +22,11 @@ public class ModItems {
     public static final RegistryObject<Item> COAL_NUGGET = ITEMS.register("coal_nugget",
             () -> new Item(new Item.Properties()));
 
+    // Chianmail Items
+    public static final RegistryObject<Item> CHAINMAIL_HORSE_ARMOR = ITEMS.register("chainmail_horse_armor",
+            () -> new AnimalArmorItem(ArmorMaterials.CHAIN, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1)));
+
     // Copper Items
     public static final RegistryObject<Item> RAW_COPPER_DUST = ITEMS.register("raw_copper_dust",
             () -> new Item(new Item.Properties()));
@@ -58,6 +63,9 @@ public class ModItems {
     public static final RegistryObject<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
             () -> new ModArmorItem(ModArmorMaterials.COPPER_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(15))));
+    public static final RegistryObject<Item> COPPER_HORSE_ARMOR = ITEMS.register("copper_horse_armor",
+            () -> new AnimalArmorItem(ModArmorMaterials.COPPER_ARMOR_MATERIAL, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1)));
 
     // Iron Items
     public static final RegistryObject<Item> RAW_IRON_DUST = ITEMS.register("raw_iron_dust",
@@ -125,12 +133,18 @@ public class ModItems {
     public static final RegistryObject<Item> EMERALD_BOOTS = ITEMS.register("emerald_boots",
             () -> new ModArmorItem(ModArmorMaterials.EMERALD_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
                     new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(35))));
+    public static final RegistryObject<Item> EMERALD_HORSE_ARMOR = ITEMS.register("emerald_horse_armor",
+            () -> new AnimalArmorItem(ModArmorMaterials.EMERALD_ARMOR_MATERIAL, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1)));
 
     // Netherite Items
     public static final RegistryObject<Item> NETHERITE_DUST = ITEMS.register("netherite_dust",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_NUGGET = ITEMS.register("netherite_nugget",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> NETHERITE_HORSE_ARMOR = ITEMS.register("netherite_horse_armor",
+            () -> new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1)));
 
     // ALL ITEMS ABOVE THIS LINE
     public static void register(IEventBus eventBus) {

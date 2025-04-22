@@ -4,10 +4,13 @@
   "item.uncrafting.coal_dust": "Coal Dust",
   "item.uncrafting.coal_nugget": "Coal Nugget",
 
+  "item.uncrafting.chainmail_horse_armor": "Chainmail Horse Armor",
+
   "item.uncrafting.raw_copper_dust": "Raw Copper Dust",
   "item.uncrafting.copper_dust": "Copper Dust",
   "item.uncrafting.raw_copper_nugget": "Raw Copper Nugget",
   "item.uncrafting.copper_nugget": "Copper Nugget",
+  "item.uncrafting.copper_horse_armor": "Copper Horse Armor",
 
   "item.uncrafting.raw_iron_dust": "Raw Iron Dust",
   "item.uncrafting.iron_dust": "Iron Dust",
@@ -31,11 +34,13 @@
 
   "item.uncrafting.netherite_dust": "Netherite Dust",
   "item.uncrafting.netherite_nugget": "Netherite Nugget",
+  "item.uncrafting.netherite_horse_armor": "Netherite Horse Armor",
 
   "item.uncrafting.emerald_helmet": "Emerald Helmet",
   "item.uncrafting.emerald_chestplate": "Emerald Chestplate",
   "item.uncrafting.emerald_leggings": "Emerald Leggings",
   "item.uncrafting.emerald_boots": "Emerald Boots",
+  "item.uncrafting.emerald_horse_armor": "Emerald Horse Armor",
 
   "item.uncrafting.copper_helmet": "Copper Diving Helmet",
   "item.uncrafting.copper_chestplate": "Copper Chestplate",
