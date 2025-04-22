@@ -1,10 +1,7 @@
 package net.assassinace.uncrafting.item;
 
 import net.assassinace.uncrafting.Uncrafting;
-import net.assassinace.uncrafting.armor.ModArmorMaterials;
-import net.assassinace.uncrafting.item.armor.CopperHelmetItem;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -33,6 +30,21 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> COPPER_NUGGET = ITEMS.register("copper_nugget",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> COPPER_SWORD = ITEMS.register("copper_sword",
+            () -> new SwordItem(ModToolTiers.COPPER, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolTiers.COPPER,3,-2.4f))));
+    public static final RegistryObject<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
+            () -> new PickaxeItem(ModToolTiers.COPPER, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolTiers.COPPER,1,-2.8f))));
+    public static final RegistryObject<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
+            () -> new ShovelItem(ModToolTiers.COPPER, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolTiers.COPPER,1.5f,-3.0f))));
+    public static final RegistryObject<Item> COPPER_AXE = ITEMS.register("copper_axe",
+            () -> new AxeItem(ModToolTiers.COPPER, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolTiers.COPPER,6,-3.2f))));
+    public static final RegistryObject<Item> COPPER_HOE = ITEMS.register("copper_hoe",
+            () -> new HoeItem(ModToolTiers.COPPER, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolTiers.COPPER,0,-3.0f))));
 
     // Iron Items
     public static final RegistryObject<Item> RAW_IRON_DUST = ITEMS.register("raw_iron_dust",
@@ -73,41 +85,27 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RAW_EMERALD = ITEMS.register("raw_emerald",
             () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMERALD_SWORD = ITEMS.register("emerald_sword",
+            () -> new SwordItem(ModToolTiers.EMERALD, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolTiers.EMERALD,3,-2.4f))));
+    public static final RegistryObject<Item> EMERALD_PICKAXE = ITEMS.register("emerald_pickaxe",
+            () -> new PickaxeItem(ModToolTiers.EMERALD, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolTiers.EMERALD,1,-2.8f))));
+    public static final RegistryObject<Item> EMERALD_SHOVEL = ITEMS.register("emerald_shovel",
+            () -> new ShovelItem(ModToolTiers.EMERALD, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolTiers.EMERALD,1.5f,-3.0f))));
+    public static final RegistryObject<Item> EMERALD_AXE = ITEMS.register("emerald_axe",
+            () -> new AxeItem(ModToolTiers.EMERALD, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolTiers.EMERALD,6,-3.2f))));
+    public static final RegistryObject<Item> EMERALD_HOE = ITEMS.register("emerald_hoe",
+            () -> new HoeItem(ModToolTiers.EMERALD, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolTiers.EMERALD,0,-3.0f))));
 
     // Netherite Items
     public static final RegistryObject<Item> NETHERITE_DUST = ITEMS.register("netherite_dust",
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> NETHERITE_NUGGET = ITEMS.register("netherite_nugget",
             () -> new Item(new Item.Properties()));
-
-    // Emerald Armor Set
-    public static final RegistryObject<Item> EMERALD_HELMET = ITEMS.register("emerald_helmet",
-            () -> new ArmorItem(ModArmorMaterials.EMERALD, ArmorItem.Type.HELMET, new Item.Properties()));
-
-    public static final RegistryObject<Item> EMERALD_CHESTPLATE = ITEMS.register("emerald_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.EMERALD, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-
-    public static final RegistryObject<Item> EMERALD_LEGGINGS = ITEMS.register("emerald_leggings",
-            () -> new ArmorItem(ModArmorMaterials.EMERALD, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-
-    public static final RegistryObject<Item> EMERALD_BOOTS = ITEMS.register("emerald_boots",
-            () -> new ArmorItem(ModArmorMaterials.EMERALD, ArmorItem.Type.BOOTS, new Item.Properties()));
-
-
-    // Copper Armor Set
-    public static final RegistryObject<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
-            () -> new CopperHelmetItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, new Item.Properties()));
-
-    public static final RegistryObject<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-
-    public static final RegistryObject<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
-            () -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-
-    public static final RegistryObject<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
-            () -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, new Item.Properties()));
-
-
 
     // ALL ITEMS ABOVE THIS LINE
     public static void register(IEventBus eventBus) {

@@ -42,6 +42,17 @@
   "item.uncrafting.copper_leggings": "Copper Leggings",
   "item.uncrafting.copper_boots": "Copper Boots",
 
+  "item.uncrafting.emerald_sword": "Emerald Sword",
+  "item.uncrafting.emerald_pickaxe": "Emerald Pickaxe",
+  "item.uncrafting.emerald_shovel": "Emerald Shovel",
+  "item.uncrafting.emerald_axe": "Emerald Axe",
+  "item.uncrafting.emerald_hoe": "Emerald Hoe",
+
+  "item.uncrafting.copper_sword": "Copper Sword",
+  "item.uncrafting.copper_pickaxe": "Copper Pickaxe",
+  "item.uncrafting.copper_shovel": "Copper Shovel",
+  "item.uncrafting.copper_axe": "Copper Axe",
+  "item.uncrafting.copper_hoe": "Copper Hoe",
 
   "block.uncrafting.uncrafting_table": "Uncrafting Table",
 

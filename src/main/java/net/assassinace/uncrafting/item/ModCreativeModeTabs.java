@@ -44,6 +44,16 @@ public static final RegistryObject<CreativeModeTab> UNCRAFTING_TABLE = CREATIVE_
                     output.accept(ModItems.RAW_EMERALD.get());
                     output.accept(ModItems.NETHERITE_DUST.get());
                     output.accept(ModItems.NETHERITE_NUGGET.get());
+                    output.accept(ModItems.COPPER_SWORD.get());
+                    output.accept(ModItems.COPPER_PICKAXE.get());
+                    output.accept(ModItems.COPPER_SHOVEL.get());
+                    output.accept(ModItems.COPPER_AXE.get());
+                    output.accept(ModItems.COPPER_HOE.get());
+                    output.accept(ModItems.EMERALD_SWORD.get());
+                    output.accept(ModItems.EMERALD_PICKAXE.get());
+                    output.accept(ModItems.EMERALD_SHOVEL.get());
+                    output.accept(ModItems.EMERALD_AXE.get());
+                    output.accept(ModItems.EMERALD_HOE.get());
                 }).build());
 
 
