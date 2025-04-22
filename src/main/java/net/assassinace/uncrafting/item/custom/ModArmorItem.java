@@ -3,8 +3,10 @@ package net.assassinace.uncrafting.item.custom;
 import com.google.common.collect.ImmutableMap;
 import net.assassinace.uncrafting.item.ModArmorMaterials;
 import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -39,8 +41,7 @@ public class ModArmorItem extends ArmorItem {
                             List.of(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 220, 0, false, false),
                                     new MobEffectInstance(MobEffects.DIG_SPEED, 220, 0, false, false)))
                     .put(ModArmorMaterials.EMERALD_ARMOR_MATERIAL,
-                            List.of(new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, 220, 0, false, false),
-                                    new MobEffectInstance(MobEffects.DIG_SPEED, 220, 0, false, false),
+                            List.of(new MobEffectInstance(MobEffects.DIG_SPEED, 220, 0, false, false),
                                     new MobEffectInstance(MobEffects.SATURATION, 220, 0, false, false),
                                     new MobEffectInstance(MobEffects.LUCK, 220, 0, false, false)))
                     .put(ArmorMaterials.NETHERITE,
@@ -60,16 +61,58 @@ public class ModArmorItem extends ArmorItem {
         }
     }
 
+    private boolean isPlayerInVillage(Player player) {
+        if (player.level() instanceof ServerLevel serverLevel) {
+            return serverLevel.getPoiManager().find(
+                    poiType -> true, // Match any POI type
+                    pos -> true,     // Match any position
+                    player.blockPosition(),
+                    32,
+                    PoiManager.Occupancy.ANY
+            ).isPresent();
+        }
+        return false;
+    }
+
+
+
+
     private void evaluateArmorEffects(Player player) {
         for(Map.Entry<Holder<ArmorMaterial>, List<MobEffectInstance>> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            Holder<ArmorMaterial> mapArmorMaterial = entry.getKey();
-            List<MobEffectInstance> mapEffect = entry.getValue();
+            Holder<ArmorMaterial> armorMaterial = entry.getKey();
+            List<MobEffectInstance> baseEffects = entry.getValue();
 
-            if(hasPlayerCorrectArmorOn(mapArmorMaterial, player)) {
-                addEffectToPlayer(player, mapEffect);
+            if (hasPlayerCorrectArmorOn(armorMaterial, player)) {
+                // Handle EMERALD armor conditionally
+                if (armorMaterial == ModArmorMaterials.EMERALD_ARMOR_MATERIAL) {
+                    if (isPlayerInVillage(player)) {
+                        player.addEffect(new MobEffectInstance(MobEffects.HERO_OF_THE_VILLAGE, 220, 0, false, false));
+                    }
+                    baseEffects.stream()
+                            .filter(effect -> effect.getEffect() != MobEffects.HERO_OF_THE_VILLAGE)
+                            .forEach(effect -> player.addEffect(new MobEffectInstance(effect.getEffect(),
+                                    effect.getDuration(), effect.getAmplifier(), effect.isAmbient(), effect.isVisible())));
+                    continue;
+                }
+
+
+                // Handle COPPER armor conditionally
+                if (armorMaterial == ModArmorMaterials.COPPER_ARMOR_MATERIAL) {
+                    if (player.isInWater()) {
+                        baseEffects.forEach(effect -> player.addEffect(new MobEffectInstance(effect.getEffect(),
+                                effect.getDuration(), effect.getAmplifier(), effect.isAmbient(), effect.isVisible())));
+                    } else {
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 220, 0, false, false));
+                    }
+                    continue;
+                }
+
+                // Apply all other armor effects normally
+                addEffectToPlayer(player, baseEffects);
             }
         }
     }
+
 
     private void addEffectToPlayer(Player player, List<MobEffectInstance> mapEffect) {
         boolean hasPlayerEffect = mapEffect.stream().allMatch(effect -> player.hasEffect(effect.getEffect()));
